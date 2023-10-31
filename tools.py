@@ -64,7 +64,7 @@ class LineEdit(QLineEdit):
         )
         
 class Text(QLabel):
-    def __init__(self,window,text,pos,size):
+    def __init__(self,window,text,pos,size=None):
         super().__init__(text,window,wordWrap=True)
         if pos != None:
             self.move(*pos)
@@ -77,12 +77,14 @@ class Text(QLabel):
             color: white;
             margin-top: 20px'''
             +"}")
-        self.setFixedSize(*size) # adjusts the size of the widget based on text size.
+        if size != None:
+            self.setFixedSize(*size) # adjusts the size of the widget based on text size.
 
 class CheckBox(QCheckBox):
     def __init__(self,window,text,pos):
         super().__init__(text,window)
-        self.move(*pos)
+        if pos != None:
+            self.move(*pos)
         self.setFixedSize(200,42)
         self.setStyleSheet(
             """
@@ -176,7 +178,6 @@ class Scrollbox:
     QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical{background: none;}
     QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{background: none;}""")
         self.scrollwidglist = []
-        self.layout.addRow(Button(window,"add row",None,(100,50),window.addrow))
         self.workoutbox.setLayout(self.layout)
         self.scroll.setWidgetResizable(True)
         self.scroll.setWidget(self.workoutbox)
